@@ -19,6 +19,6 @@ executable hasrbash
   main-is:             Main.hs
   -- other-modules:       
   -- other-extensions:    
-  build-depends:       base >=4.8 && <4.9, xml, tagsoup, utf8-string, text, parsec, HTTP, split
+  build-depends:       base >=4.8 && <4.9, xml, tagsoup, text, parsec, HTTP, split, shakespeare, blaze-markup, utf8-string, containers
   hs-source-dirs:      src
   default-language:    Haskell2010
