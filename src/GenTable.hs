@@ -2,10 +2,23 @@
 
 module GenTable where
 
+import Data.List (intercalate)
+
 import Text.Blaze.Renderer.String (renderMarkup)
 import Text.Hamlet (shamlet)
 
 import Quote
+
+dumpQuotesAsJSON :: [Quote] -> String
+dumpQuotesAsJSON = unlines . map jsonifyQuote
+  where
+    jsonifyQuote (Quote qps) = "{\"quote\":[" ++ allParts qps ++ "]}" -- init filters trailing comma
+    allParts = intercalate "," . map jsonifyPart
+    jsonifyPart (QOther s) = "{\"type\":\"other\",\"spoken\":\"" ++ s ++ "\"}"
+    jsonifyPart (QSpeech speaker attribute spoken)
+      = "{\"type\":\"speech\",\"speaker\":\"" ++ speaker
+        ++ "\", \"attribute\":\"" ++ attribute
+        ++ "\", \"spoken\":\"" ++ spoken ++ "\"}"
 
 getAnalysisAndQuotesAsHtml :: [(String, Int)] -> [Quote] -> String
 getAnalysisAndQuotesAsHtml authors quotes = renderMarkup $

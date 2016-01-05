@@ -33,6 +33,7 @@ main = do putStrLn "Loading..."
                       $ map speakerExtractor quotes
           putStrLn "Writing..."
           writeFile "/tmp/table.htm" $ getAnalysisAndQuotesAsHtml authors quotes
+          writeFile "/tmp/quotes.json" $ dumpQuotesAsJSON quotes
   where
     speakerExtractor (Quote qps) = getSpeaker $ last $ filter isQSpeech qps
     countOccurences :: Ord a => [a] -> M.Map a Int
